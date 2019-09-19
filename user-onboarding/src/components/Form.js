@@ -49,8 +49,9 @@ const UserForm = ({values, touched, errors, status}) => {
                 </label>
                 {touched.terms && errors.terms && <p className="error">{errors.terms}</p>}
                 <button className="button form"> Submit </button>
-
+                <h3> Current Users </h3>
                 <div className="user-info">
+                
                 {users.map(user => (
                     <ul key={user.id}>
                         <li>Name: {user.name}</li>

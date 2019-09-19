@@ -26,6 +26,8 @@
   flex-direction: column;
   align-items: center;
   margin: 10vh;
+  background:#F5F5F5;
+  padding:15px;
 }
 
 .button{
@@ -52,13 +54,23 @@ label{
 }
 
 ul{
+  
+  
   list-style-type: none;
   background-color:gray;
   color:white;
   text-align: center;
   padding:20px;
+  margin: 2vh;
+  
 }
 
 li{
   font-size:1.3rem;
+  margin:2vh;
+}
+
+.user-info{
+  display: flex;
+  flex-wrap:wrap;
 }
