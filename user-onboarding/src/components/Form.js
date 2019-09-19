@@ -13,42 +13,42 @@ const UserForm = ({values, touched, errors, status}) => {
     }, [status])
 
     return (
-        <div className="user-form">
-            <Form>
-                <label> Name:
-                    <Field
+        <div>
+            <Form className="user-form">
+                <label className="form"> Name: 
+                    <Field className="name"
                         type="text"
                         name="name"
                         placeholder="Name"
                         />
                 </label>
-                {touched.name && errors.name && <p>{errors.name}</p>}
-                <label> Email:
-                    <Field
+                {touched.name && errors.name && <p className="error">{errors.name}</p>}
+                <label className="form"> Email: 
+                    <Field className="email"
                         type="text"
                         name="email"
                         placeholder="Email"
                         />
                 </label>
-                {touched.email && errors.email && <p>{errors.email}</p>}
-                <label> Password:
-                    <Field
+                {touched.email && errors.email && <p className="error">{errors.email}</p>}
+                <label className="form"> Password: 
+                    <Field className="password"
                         type="password"
                         name="password"
                         placeholder=""
                         />
                 </label>
-                {touched.password && errors.password && <p>{errors.password}</p>}
-                <label> Terms of Service
-                    <Field
+                {touched.password && errors.password && <p className="error">{errors.password}</p>}
+                <label className="form"> Terms of Service 
+                    <Field className="terms"
                         type="checkbox"
                         name="terms"
                         checked={values.checkbox}
                         
                         />
                 </label>
-                {touched.terms && errors.terms && <p>{errors.terms}</p>}
-                <button className="button"> Submit </button>
+                {touched.terms && errors.terms && <p className="error">{errors.terms}</p>}
+                <button className="button form"> Submit </button>
 
                 <div className="user-info">
                 {users.map(user => (
@@ -85,7 +85,8 @@ const FormikUserForm = withFormik({
 
     }),
 
-    handleSubmit(values, {setStatus}) {
+    handleSubmit(values, {setStatus, resetForm}) {
+        resetForm('');
         axios
         .post('https://reqres.in/api/users', values)
         .then(res => {
