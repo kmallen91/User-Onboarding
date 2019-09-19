@@ -1,9 +1,10 @@
 import React from "react"
-import {withFormik, Form, Field, setNestedObjectValues} from "formik"
+import {withFormik, Form, Field } from "formik"
 import * as Yup from "yup"
+import axios from "axios"
 
 
-const UserForm = ({values}) => {
+const UserForm = ({values, touched, errors}) => {
 
 
     return (
@@ -16,6 +17,7 @@ const UserForm = ({values}) => {
                         placeholder="Name"
                         />
                 </label>
+                {touched.name && errors.name && <p>{errors.name}</p>}
                 <label> Email:
                     <Field
                         type="text"
@@ -23,6 +25,7 @@ const UserForm = ({values}) => {
                         placeholder="Email"
                         />
                 </label>
+                {touched.email && errors.email && <p>{errors.email}</p>}
                 <label> Password:
                     <Field
                         type="password"
@@ -30,6 +33,7 @@ const UserForm = ({values}) => {
                         placeholder=""
                         />
                 </label>
+                {touched.password && errors.password && <p>{errors.password}</p>}
                 <label> Terms of Service
                     <Field
                         type="checkbox"
@@ -38,6 +42,7 @@ const UserForm = ({values}) => {
                         
                         />
                 </label>
+                {touched.terms && errors.terms && <p>{errors.terms}</p>}
                 <button className="button"> Submit </button>
 
             
@@ -56,6 +61,21 @@ const FormikUserForm = withFormik({
             password: password || "",
             terms: terms || false,
         }
+    },
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required("Please enter your name."),
+        email: Yup.string().email().required("Please enter a valid email."),
+        password: Yup.string().min(6, "Password must exceed 6 charaters.").required("Password is required."),
+        terms: Yup.boolean().oneOf([true], 'Must Accept Terms and Conditions')
+
+    }),
+
+    handleSubmit(values, {setStatus}) {
+        axios
+        .post('https://reqres.in/api/users', values)
+        .then(res => {
+            console.log(res)
+        })
     }
 
 
